@@ -4,7 +4,7 @@ import 'locomotive-scroll/dist/locomotive-scroll.css';
 
 export const initScroll = () => {
   const scroll = new LocomotiveScroll({
-    el: document.querySelector('[data-scroll-container]'),
+    el: document.getElementById('data-scroll-container'),
     smooth: true,
   });
 
