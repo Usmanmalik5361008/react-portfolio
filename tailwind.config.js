@@ -10,6 +10,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Montserrat", "sans-serif"],
+        opensans: ["Open Sans", "sans-serif"],
       },
     },
     backgroundImage: {
