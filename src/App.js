@@ -1,5 +1,5 @@
 import "./App.css";
-import { Header } from "./components";
+import { Footer, Header } from "./components";
 import { HeroSection, DescriptionSection, Skills, Portfolio } from "./sections";
 import { useRef } from "react";
 import { LocomotiveScrollProvider } from "react-locomotive-scroll";
@@ -32,6 +32,7 @@ function App() {
         <DescriptionSection />
         <Skills />
         <Portfolio />
+        <Footer />
       </div>
     </LocomotiveScrollProvider>
   );

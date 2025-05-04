@@ -45,4 +45,8 @@ export const skills = [
     label: "Typescript",
     icon: "ts-logo.png",
   },
+  {
+    label: "Firebase",
+    icon: "firebase-logo.png",
+  },
 ];
