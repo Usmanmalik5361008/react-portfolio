@@ -59,16 +59,16 @@ export const projects = [
     image: "bounce.png",
     technologies: ["Next Js", "Sass"],
     description:
-      "A modern racket sports platform built with Next.js and GraphQL that helps players and coaches connect effortlessly. Bounce allows users to book courts, find players, take lessons (remote and on-court), and manage their coaching schedules with ease. Powered by Hasura and Postgres for real-time data access and scalability, and styled with Tailwind CSS for a clean, intuitive user interface.",
+      "WorkerX is a comprehensive home services management platform tailored for small to medium-sized field service businesses. It offers a suite of features including online booking, real-time dispatching, payment processing via Stripe, invoicing with QuickBooks integration, and a dedicated field worker mobile app. The platform streamlines operations, enhances customer service, and boosts appointment rates. Built with Next.js and leveraging server-side rendering, WorkerX delivers a responsive and efficient user interface, ensuring optimal performance and scalability.",
     href: "https://bounce.game/",
   },
   {
     title: "RFX Fitness",
     thumbnail: "rfx-thumbnail.png",
-    image: "bounce.png",
+    image: "rfx-thumbnail.png",
     technologies: ["Next Js", "Sass"],
     description:
-      "A modern racket sports platform built with Next.js and GraphQL that helps players and coaches connect effortlessly. Bounce allows users to book courts, find players, take lessons (remote and on-court), and manage their coaching schedules with ease. Powered by Hasura and Postgres for real-time data access and scalability, and styled with Tailwind CSS for a clean, intuitive user interface.",
+      "RFX Fitness is an innovative platform that merges racket sports with high-intensity interval training (HIIT) to deliver dynamic group fitness sessions. Each class is structured to enhance agility, endurance, and strength through a combination of warm-ups, targeted HIIT exercises, engaging play sessions, and cooldowns. The program is designed to be inclusive, catering to individuals of all skill and fitness levels, and fosters a vibrant community atmosphere. Developed using Next.js with a focus on server-side rendering, the platform ensures fast load times and seamless user experiences across devices.",
     href: "https://bounce.game/",
   },
 ];

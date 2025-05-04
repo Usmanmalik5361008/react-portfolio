@@ -39,7 +39,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="text-sm text-light">
-          <span>@2020 Tomasz Gajda</span>
+          <span>@2025 Usman Malik</span>
           <span className="ml-1">All Rights Reserved.</span>
         </div>
       </div>

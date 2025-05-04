@@ -1,114 +1,203 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ProjectModal = ({ isOpen, onClose, project }) => {
+  // Handle escape key to close modal
+  useEffect(() => {
+    const handleEscKey = (e) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscKey);
+    return () => document.removeEventListener("keydown", handleEscKey);
+  }, [isOpen, onClose]);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      // Save the current overflow value
+      const originalOverflow = document.body.style.overflow;
+      // Prevent scrolling on the body when modal is open
+      document.body.style.overflow = "hidden";
+
+      // Restore original overflow on cleanup
+      return () => {
+        document.body.style.overflow = originalOverflow || "";
+      };
+    }
+  }, [isOpen]);
+
   if (!project) return null;
 
   const modalContent = (
-    <>
-      {/* Backdrop */}
-      <div
-        className={`fixed  inset-0 bg-black transition-opacity duration-300 z-50 ${
-          isOpen ? "opacity-70" : "opacity-0 pointer-events-none"
-        }`}
-        onClick={onClose}
-      />
-
-      {/* Modal */}
-      <div
-        className={`fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-6xl mx-4 transition-all duration-300 ${
-          isOpen
-            ? "scale-100 opacity-100"
-            : "scale-95 opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="bg-[#1A1A1A] rounded-lg overflow-hidden shadow-2xl h-[90vh] flex flex-col md:flex-row">
-          {/* Close button */}
-          <button
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop with fade animation */}
+          <motion.div
+            className="fixed inset-0 bg-black z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.75 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             onClick={onClose}
-            className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black bg-opacity-50 text-white hover:bg-opacity-70 transition-colors"
+          />
+
+          {/* Modal with scale and fade animation */}
+          <motion.div
+            className="fixed left-1/2 top-1/2 z-50 w-full max-w-3xl mx-4"
+            initial={{ y: "-60%", x: "-50%", scale: 0.9, opacity: 0 }}
+            animate={{ y: "-50%", x: "-50%", scale: 1, opacity: 1 }}
+            exit={{ y: "-60%", x: "-50%", scale: 0.9, opacity: 0 }}
+            transition={{
+              duration: 0.4,
+              ease: [0.16, 1, 0.3, 1], // Custom bezier curve for smooth animation
+              opacity: { duration: 0.25 },
+            }}
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+            <div className="bg-[#121212] rounded-xl shadow-2xl flex flex-col max-h-[90vh] overflow-auto">
+              {/* Close button with hover animation */}
+              <motion.button
+                onClick={onClose}
+                className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black bg-opacity-60 text-white"
+                whileHover={{
+                  scale: 1.1,
+                  backgroundColor: "rgba(0, 0, 0, 0.8)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </motion.button>
 
-          {/* Left side - Image */}
-          <div className="w-full md:w-1/2  md:h-auto">
-            {project.image && (
-              <img
-                src={`/images/projects/${project.image}`}
-                alt={project.title}
-                className="w-full h-full"
-              />
-            )}
-          </div>
+              {/* Content container */}
+              <div className="flex flex-col w-full h-full">
+                {/* Top - Image with controlled dimensions */}
+                <div className="w-full bg-[#0A0A0A] flex items-center justify-center">
+                  {project.thumbnail && (
+                    <div className="w-full max-w-4xl mx-auto">
+                      <div className="relative w-full h-0 pb-[56.25%]">
+                        <img
+                          src={`/images/colored-thumbnails/${project.thumbnail}`}
+                          alt={project.title}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
 
-          {/* Right side - Content */}
-          <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-sans">
-              {project.title}
-            </h2>
-
-            <p className="text-light mb-8 font-opensans text-base md:text-lg leading-relaxed">
-              {project.description}
-            </p>
-
-            {/* Details Grid */}
-            <div className="space-y-6 mb-8">
-              <div>
-                <h3 className="text-sm text-secondaryText uppercase tracking-wider mb-3">
-                  Technologies
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies?.map((tech, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-[#2A2A2A] text-light rounded-full text-sm"
+                {/* Bottom - Content area */}
+                <div className="w-full max-w-3xl mx-auto p-6 md:p-10">
+                  <div className="space-y-8">
+                    {/* Title with subtle animation */}
+                    <motion.h2
+                      className="text-3xl md:text-4xl font-bold text-white font-sans"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
                     >
-                      {tech}
-                    </span>
-                  ))}
+                      {project.title}
+                    </motion.h2>
+
+                    {/* Description with subtle animation */}
+                    <motion.p
+                      className="text-gray-300 font-opensans text-base md:text-lg leading-relaxed"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      {project.description}
+                    </motion.p>
+
+                    {/* Technologies */}
+                    <motion.div
+                      className="space-y-4"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                    >
+                      <h3 className="text-sm text-gray-400 uppercase tracking-wider font-medium">
+                        Technologies
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies?.map((tech, index) => (
+                          <motion.span
+                            key={index}
+                            className="px-4 py-2 bg-[#1E1E1E] text-gray-200 rounded-lg text-sm"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.4 + index * 0.05 }}
+                            whileHover={{
+                              backgroundColor: "#2A2A2A",
+                              scale: 1.03,
+                              transition: { duration: 0.2 },
+                            }}
+                          >
+                            {tech}
+                          </motion.span>
+                        ))}
+                      </div>
+                    </motion.div>
+
+                    {/* View project button with hover animation */}
+                    {project.href && (
+                      <motion.div
+                        className="pt-6"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 }}
+                      >
+                        <motion.a
+                          href={project.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center px-4 py-2 bg-white text-sm text-black rounded-lg font-medium"
+                          whileHover={{
+                            scale: 1.03,
+                            backgroundColor: "#f0f0f0",
+                            boxShadow:
+                              "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                          }}
+                          whileTap={{ scale: 0.98 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          View Project
+                          <svg
+                            className="w-4 h-4 ml-2"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                          </svg>
+                        </motion.a>
+                      </motion.div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-
-            {/* View project button */}
-            {project.href && (
-              <div className="mt-auto">
-                <a
-                  href={project.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-8 py-3 bg-white text-black rounded hover:bg-light transition-colors font-medium"
-                >
-                  View Project
-                  <svg
-                    className="w-5 h-5 ml-2"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </a>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   );
 
   // Use portal to render the modal in the body
