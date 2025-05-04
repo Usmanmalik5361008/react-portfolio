@@ -14,7 +14,7 @@ export const projects = [
   - Clear presentation of services, products, and contact sections
   - Optimized for performance and responsive across devices
   - Clean and serious design aligned with the defense sector's branding`,
-    href: "https://github.com/username/hstc-portfolio",
+    href: "https://hstc-frontend.vercel.app/",
   },
 
   {
@@ -24,7 +24,7 @@ export const projects = [
     technologies: ["React Js", "Tailwind CSS"],
     description:
       "Crafted a sleek and responsive website to showcase Agape IT’s tech expertise and services. Focused on clean layouts, vibrant sectioning, and subtle interactions — all powered by React and styled effortlessly with Tailwind CSS.",
-    href: "https://github.com/username/ecommerce-dashboard",
+    href: "https://agape-it-git-main-usmanmalik1s-projects.vercel.app",
   },
 
   {
@@ -60,7 +60,7 @@ export const projects = [
     technologies: ["Next Js", "Sass"],
     description:
       "WorkerX is a comprehensive home services management platform tailored for small to medium-sized field service businesses. It offers a suite of features including online booking, real-time dispatching, payment processing via Stripe, invoicing with QuickBooks integration, and a dedicated field worker mobile app. The platform streamlines operations, enhances customer service, and boosts appointment rates. Built with Next.js and leveraging server-side rendering, WorkerX delivers a responsive and efficient user interface, ensuring optimal performance and scalability.",
-    href: "https://bounce.game/",
+    href: "https://workerx.co/",
   },
   {
     title: "RFX Fitness",
@@ -69,6 +69,6 @@ export const projects = [
     technologies: ["Next Js", "Sass"],
     description:
       "RFX Fitness is an innovative platform that merges racket sports with high-intensity interval training (HIIT) to deliver dynamic group fitness sessions. Each class is structured to enhance agility, endurance, and strength through a combination of warm-ups, targeted HIIT exercises, engaging play sessions, and cooldowns. The program is designed to be inclusive, catering to individuals of all skill and fitness levels, and fosters a vibrant community atmosphere. Developed using Next.js with a focus on server-side rendering, the platform ensures fast load times and seamless user experiences across devices.",
-    href: "https://bounce.game/",
+    href: "https://www.rfxfitness.com/",
   },
 ];
