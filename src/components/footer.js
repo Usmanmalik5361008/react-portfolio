@@ -16,17 +16,23 @@ const Footer = () => {
 
         {/* Social media icons */}
         <div className="flex space-x-6 mb-6">
-          <a href="#" className="hover:opacity-80 transition-opacity">
+          <a
+            href="https://www.facebook.com/profile.php?id=100042025066815"
+            className="hover:opacity-80 transition-opacity"
+          >
             <Facebook size={20} />
           </a>
-          <a href="#" className="hover:opacity-80 transition-opacity">
+          <a
+            href="https://www.linkedin.com/in/usmanindev"
+            className="hover:opacity-80 transition-opacity"
+          >
             <Linkedin size={20} />
           </a>
-          <a href="#" className="hover:opacity-80 transition-opacity">
+          <a
+            href="https://www.instagram.com/usmanmalik9456/#"
+            className="hover:opacity-80 transition-opacity"
+          >
             <Instagram size={20} />
-          </a>
-          <a href="#" className="hover:opacity-80 transition-opacity">
-            <Mail size={20} />
           </a>
         </div>
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   motion,
   useMotionValue,
@@ -7,6 +7,8 @@ import {
   useAnimationFrame,
 } from "framer-motion";
 import { useLocomotiveScroll } from "react-locomotive-scroll";
+import { Facebook, Linkedin, Instagram } from "lucide-react";
+import GitHubIcon from "../../svgs/github";
 
 const lerp = (start, end, factor) => {
   return start * (1 - factor) + end * factor;
@@ -16,6 +18,7 @@ const HeroSection = () => {
   const { scroll } = useLocomotiveScroll();
   const targetScroll = React.useRef(0);
   const currentScroll = useMotionValue(0);
+  const [showSocials, setShowSocials] = useState(false);
 
   // Create a spring-animated scale that starts at 0
   // This will handle both initial animation and scroll-based scaling
@@ -31,6 +34,11 @@ const HeroSection = () => {
     const timer = setTimeout(() => {
       // Start the initial scale animation from 0 to 1
       springScale.set(1);
+
+      // Show social icons after the initial animation plus a short delay
+      setTimeout(() => {
+        setShowSocials(true);
+      }, 800); // Additional delay after initial animation
     }, 1800);
 
     return () => clearTimeout(timer);
@@ -90,6 +98,7 @@ const HeroSection = () => {
     }
   });
 
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: ({ stagger, delay }) => ({
@@ -130,6 +139,31 @@ const HeroSection = () => {
     },
   };
 
+  // Social icon animations
+  const socialsContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const socialIconVariants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: "spring",
+        damping: 20,
+        stiffness: 120,
+      },
+    },
+  };
+
   const nameText = "Usman Malik";
   const titleText = "Full Stack Developer";
 
@@ -150,6 +184,106 @@ const HeroSection = () => {
             alt="Usman Malik"
             className="w-full h-auto transform translate-y-[10vh] sm:translate-y-[15rem] translate-x-[5%] sm:translate-x-8"
           />
+        </div>
+      </motion.div>
+
+      {/* Social icons positioned on the right */}
+      <motion.div
+        className="absolute right-4 sm:right-8 md:right-12 top-1/2 transform -translate-y-1/2 z-10 hidden sm:block"
+        variants={socialsContainerVariants}
+        initial="hidden"
+        animate={showSocials ? "visible" : "hidden"}
+      >
+        <div className="flex flex-col space-y-6">
+          <motion.a
+            href="https://www.linkedin.com/in/usmanindev"
+            className="text-white hover:text-brand transition-colors duration-300 flex items-center justify-center w-10 h-10 bg-black bg-opacity-30 backdrop-blur-sm rounded-full"
+            variants={socialIconVariants}
+            whileHover={{ scale: 1.1, backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Linkedin size={18} />
+          </motion.a>
+
+          <motion.a
+            href="https://github.com/Usmanmalik5361008"
+            className="text-white hover:text-brand transition-colors duration-300 flex items-center justify-center w-10 h-10 bg-black bg-opacity-30 backdrop-blur-sm rounded-full"
+            variants={socialIconVariants}
+            whileHover={{ scale: 1.1, backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <GitHubIcon size={18} />
+          </motion.a>
+
+          <motion.a
+            href="https://www.facebook.com/profile.php?id=100042025066815"
+            className="text-white hover:text-brand transition-colors duration-300 flex items-center justify-center w-10 h-10 bg-black bg-opacity-30 backdrop-blur-sm rounded-full"
+            variants={socialIconVariants}
+            whileHover={{ scale: 1.1, backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Facebook size={18} />
+          </motion.a>
+
+          <motion.a
+            href="https://www.instagram.com/usmanmalik9456/#"
+            className="text-white hover:text-brand transition-colors duration-300 flex items-center justify-center w-10 h-10 bg-black bg-opacity-30 backdrop-blur-sm rounded-full"
+            variants={socialIconVariants}
+            whileHover={{ scale: 1.1, backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Instagram size={18} />
+          </motion.a>
+        </div>
+      </motion.div>
+
+      {/* Mobile social icons - horizontal at the bottom */}
+      <motion.div
+        className="absolute bottom-8 left-0 right-0 mx-auto flex justify-center sm:hidden"
+        variants={socialsContainerVariants}
+        initial="hidden"
+        animate={showSocials ? "visible" : "hidden"}
+      >
+        <div className="flex space-x-6">
+          <motion.a
+            href="https://www.linkedin.com/in/usmanindev"
+            className="text-white hover:text-brand transition-colors duration-300 flex items-center justify-center w-10 h-10 bg-black bg-opacity-30 backdrop-blur-sm rounded-full"
+            variants={socialIconVariants}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Linkedin size={18} />
+          </motion.a>
+
+          <motion.a
+            href="https://www.facebook.com/profile.php?id=100042025066815"
+            className="text-white hover:text-brand transition-colors duration-300 flex items-center justify-center w-10 h-10 bg-black bg-opacity-30 backdrop-blur-sm rounded-full"
+            variants={socialIconVariants}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Facebook size={18} />
+          </motion.a>
+
+          <motion.a
+            href="https://github.com/Usmanmalik5361008"
+            className="text-white hover:text-brand transition-colors duration-300 flex items-center justify-center w-10 h-10 bg-black bg-opacity-30 backdrop-blur-sm rounded-full"
+            variants={socialIconVariants}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <GitHubIcon size={18} />
+          </motion.a>
+
+          <motion.a
+            href="https://www.instagram.com/usmanmalik9456/#"
+            className="text-white hover:text-brand transition-colors duration-300 flex items-center justify-center w-10 h-10 bg-black bg-opacity-30 backdrop-blur-sm rounded-full"
+            variants={socialIconVariants}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Instagram size={18} />
+          </motion.a>
         </div>
       </motion.div>
 
