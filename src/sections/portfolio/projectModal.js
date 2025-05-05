@@ -60,11 +60,11 @@ const ProjectModal = ({ isOpen, onClose, project }) => {
                 opacity: { duration: 0.25 },
               }}
             >
-              <div className="bg-[#121212] rounded-xl shadow-2xl flex flex-col max-h-[calc(100vh-2rem)] overflow-auto no-scrollbar">
+              <div className="bg-[#121212] relative rounded-xl shadow-2xl flex flex-col max-h-[calc(100vh-2rem)] overflow-auto no-scrollbar">
                 {/* Close button with hover animation */}
                 <motion.button
                   onClick={onClose}
-                  className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black bg-opacity-60 text-white"
+                  className="fixed top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black bg-opacity-60 text-white"
                   whileHover={{
                     scale: 1.1,
                     backgroundColor: "rgba(0, 0, 0, 0.8)",
