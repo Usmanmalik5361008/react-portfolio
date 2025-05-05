@@ -23,11 +23,11 @@ function App() {
       }
     >
       <div
-        className="bg-custom-radial"
+        className="bg-primaryDark"
         data-scroll-container
         ref={containerRef}
       >
-        <Header />
+        {/* <Header /> */}
         <HeroSection />
         <DescriptionSection />
         <Skills />

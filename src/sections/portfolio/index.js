@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { Heading } from "../../components";
 import { projects } from "./data";
 import PortfolioCard from "./portfolioCard";
@@ -19,15 +20,31 @@ const Portfolio = () => {
   };
 
   return (
-    <section className="mt-28 bg-[#1A1A1A] py-20">
-      <Heading text="Portfolio" invert />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16 container mx-auto">
+    <section
+      className="sm:mt-28  py-20"
+      data-scroll
+      id="work"
+    >
+      <div data-scroll data-scroll-speed="0.2">
+        <Heading text="Portfolio" invert />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16 container mx-auto px-4">
         {projects.map((project, index) => (
-          <PortfolioCard
-            {...project}
+          <motion.div
             key={index}
-            onReadMore={() => handleReadMore(project)}
-          />
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, delay: index * 0.1 }}
+            data-scroll
+            data-scroll-speed={0.05}
+          >
+            <PortfolioCard
+              {...project}
+              onReadMore={() => handleReadMore(project)}
+            />
+          </motion.div>
         ))}
       </div>
 
