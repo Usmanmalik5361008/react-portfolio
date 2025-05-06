@@ -21,7 +21,7 @@ const Portfolio = () => {
 
   return (
     <section
-      className="sm:mt-28  py-20"
+      className="sm:mt-28  sm:py-20 pb-10"
       data-scroll
       id="work"
     >

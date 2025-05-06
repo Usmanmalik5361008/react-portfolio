@@ -168,7 +168,7 @@ const HeroSection = () => {
   const titleText = "Full Stack Developer";
 
   return (
-    <section className="bg-primaryDark min-h-screen overflow-hidden relative">
+    <section className="bg-primaryDark min-h-[48rem] overflow-hidden relative">
       <motion.div
         className="flex justify-center w-full absolute top-[10rem] sm:top-[5rem]"
         variants={bgVariants}
