@@ -146,7 +146,7 @@ const Description = () => {
     <section
       ref={sectionRef}
       id="description-section"
-      className="min-h-screen   md:py-40 flex items-center"
+      className="md:pt-40 flex items-center"
       data-scroll
     >
       <div className="container mx-auto px-8 md:px-16">
